@@ -16,7 +16,6 @@ import com.denzcoskun.imageslider.constants.ScaleTypes;
 import com.denzcoskun.imageslider.models.SlideModel;
 import com.example.studentscms.R;
 
-import java.net.URI;
 import java.util.ArrayList;
 
 public class HomeFragment extends Fragment {
