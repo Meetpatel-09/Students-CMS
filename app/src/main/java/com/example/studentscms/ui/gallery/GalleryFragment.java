@@ -48,8 +48,8 @@ public class GalleryFragment extends Fragment {
 
         getAnnualFunctionImages();
         getIndependentDayImages();
-//        getProjectFairImages();
-//        getOtherEventImages();
+        getProjectFairImages();
+        getOtherEventImages();
 
         return view;
     }
