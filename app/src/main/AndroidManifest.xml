@@ -11,16 +11,17 @@
         android:roundIcon="@drawable/c"
         android:supportsRtl="true"
         android:theme="@style/Theme.StudentsCMS">
-        <activity android:name=".authentication.RegisterActivity" android:theme="@style/Theme.MaterialComponents.Light.NoActionBar">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
+        <activity android:name=".authentication.LoginActivity" android:theme="@style/Theme.MaterialComponents.Light.NoActionBar">
         </activity>
-        <activity android:name=".MainActivity">
-
+        <activity
+            android:name=".authentication.RegisterActivity"
+            android:theme="@style/Theme.MaterialComponents.Light.NoActionBar">
         </activity>
+        <activity android:name=".MainActivity"><intent-filter>
+            <action android:name="android.intent.action.MAIN" />
+
+            <category android:name="android.intent.category.LAUNCHER" />
+        </intent-filter></activity>
     </application>
 
 </manifest>

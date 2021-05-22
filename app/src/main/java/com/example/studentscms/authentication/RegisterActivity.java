@@ -10,6 +10,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.studentscms.MainActivity;
@@ -29,6 +30,7 @@ import java.util.HashMap;
 public class RegisterActivity extends AppCompatActivity {
 
     private EditText fName, email, pwd, enroll, num;
+    private TextView openLogin;
     private Button btnReg;
     private String sName, sEmail, sPwd, sEnroll, sNum, department, semester;
 
@@ -53,11 +55,20 @@ public class RegisterActivity extends AppCompatActivity {
         enroll = findViewById(R.id.reg_enroll);
         num = findViewById(R.id.reg_phone);
         btnReg = findViewById(R.id.btn_reg);
+        openLogin = findViewById(R.id.tv_login);
 
         btnReg.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 validateData();
+            }
+        });
+
+        openLogin.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(RegisterActivity.this, LoginActivity.class));
+                finish();
             }
         });
     }
@@ -122,12 +133,14 @@ public class RegisterActivity extends AppCompatActivity {
                 if (task.isSuccessful()) {
                     uploadData();
                 } else {
+                    pd.dismiss();
                     Toast.makeText(RegisterActivity.this, "Error : " + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
                 }
             }
         }).addOnFailureListener(new OnFailureListener() {
             @Override
             public void onFailure(@NonNull @NotNull Exception e) {
+                pd.dismiss();
                 Toast.makeText(RegisterActivity.this, "Error : " + e.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
@@ -151,19 +164,18 @@ public class RegisterActivity extends AppCompatActivity {
             @Override
             public void onComplete(@NonNull @NotNull Task<Void> task) {
                 if (task.isSuccessful()) {
-                    pd.dismiss();
                     Toast.makeText(RegisterActivity.this, "Registration Successful!!!", Toast.LENGTH_SHORT).show();
                     openMain();
                 } else {
                     pd.dismiss();
-                    Toast.makeText(RegisterActivity.this, task.getException().getMessage(), Toast.LENGTH_SHORT).show();
+                    Toast.makeText(RegisterActivity.this, "Error : " + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
                 }
             }
         }).addOnFailureListener(new OnFailureListener() {
             @Override
             public void onFailure(@NonNull @NotNull Exception e) {
                 pd.dismiss();
-                Toast.makeText(RegisterActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
+                Toast.makeText(RegisterActivity.this, "Error : " + e.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
     }

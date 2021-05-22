@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".authentication.RegisterActivity">
+    tools:context=".authentication.LoginActivity">
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -79,7 +79,7 @@
                             android:layout_height="wrap_content"
                             android:layout_gravity="center_horizontal"
                             android:layout_margin="16sp"
-                            android:text="Register"
+                            android:text="Log In"
                             android:textColor="@color/black"
                             android:textSize="20sp"
                             android:textStyle="bold" />
@@ -90,68 +90,7 @@
                             android:layout_height="match_parent">
 
                             <com.google.android.material.textfield.TextInputEditText
-                                android:id="@+id/reg_name"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:hint="Full Name"
-                                android:inputType="text" />
-                        </com.google.android.material.textfield.TextInputLayout>
-
-                        <com.google.android.material.textfield.TextInputLayout
-                            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent">
-
-                            <com.google.android.material.textfield.TextInputEditText
-                                android:id="@+id/reg_enroll"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:hint="Enrollment Number"
-                                android:inputType="number" />
-                        </com.google.android.material.textfield.TextInputLayout>
-
-                        <Spinner
-                            android:id="@+id/reg_department"
-                            android:layout_width="match_parent"
-                            android:layout_height="55dp"
-                            android:layout_marginTop="5dp"
-                            android:background="@drawable/style_spinner"
-                            android:entries="@array/Department"
-                            android:spinnerMode="dropdown" />
-
-                        <ImageView
-                            android:layout_width="25dp"
-                            android:layout_height="25dp"
-                            android:src="@drawable/ic_drop_down"
-                            android:layout_marginTop="-40dp"
-                            android:layout_gravity="end"
-                            android:layout_marginEnd="10dp"/>
-
-                        <Spinner
-                            android:id="@+id/reg_semester"
-                            android:layout_width="match_parent"
-                            android:layout_height="55dp"
-                            android:layout_marginTop="20dp"
-                            android:background="@drawable/style_spinner"
-                            android:entries="@array/semesters"
-                            android:spinnerMode="dropdown" />
-
-                        <ImageView
-                            android:layout_width="25dp"
-                            android:layout_height="25dp"
-                            android:src="@drawable/ic_drop_down"
-                            android:layout_marginTop="-40dp"
-                            android:layout_gravity="end"
-                            android:layout_marginEnd="10dp"/>
-
-                        <com.google.android.material.textfield.TextInputLayout
-                            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:layout_marginTop="15dp">
-
-                            <com.google.android.material.textfield.TextInputEditText
-                                android:id="@+id/reg_email"
+                                android:id="@+id/login_email"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:hint="Email"
@@ -161,24 +100,11 @@
                         <com.google.android.material.textfield.TextInputLayout
                             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                             android:layout_width="match_parent"
-                            android:layout_height="match_parent">
-
-                            <com.google.android.material.textfield.TextInputEditText
-                                android:id="@+id/reg_phone"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:hint="Mobile Number"
-                                android:inputType="number" />
-                        </com.google.android.material.textfield.TextInputLayout>
-
-                        <com.google.android.material.textfield.TextInputLayout
-                            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                            android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             app:passwordToggleEnabled="true">
 
                             <com.google.android.material.textfield.TextInputEditText
-                                android:id="@+id/reg_password"
+                                android:id="@+id/login_password"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:hint="Password"
@@ -186,22 +112,22 @@
                         </com.google.android.material.textfield.TextInputLayout>
 
                         <com.google.android.material.button.MaterialButton
-                            android:id="@+id/btn_reg"
+                            android:id="@+id/btn_login"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:text="Register"
-                            android:padding="15dp"
                             android:layout_marginTop="5dp"
+                            android:padding="15dp"
+                            android:text="Log In"
                             android:textColor="@color/white"/>
 
                         <TextView
-                            android:id="@+id/tv_login"
+                            android:id="@+id/tv_reg"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:text="Already Registered? Click here to Log In."
+                            android:text="Not yet Registered? Click here to Register."
                             android:textAlignment="center"
                             android:textSize="16sp"
-                            android:textColor="@color/purple_700"/>
+                            android:textColor="@color/purple_700" />
 
                     </LinearLayout>
 
