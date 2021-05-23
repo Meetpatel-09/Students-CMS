@@ -10,15 +10,28 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
+import com.example.studentscms.MainActivity;
 import com.example.studentscms.R;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.Task;
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import org.jetbrains.annotations.NotNull;
 
+import java.util.HashMap;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
@@ -27,6 +40,13 @@ public class bottom_dialog extends BottomSheetDialogFragment {
     private TextView title, link, btn_visit;
     private ImageView close;
     private String fetchurl;
+
+    private FirebaseUser fUser;
+    String profileId;
+
+    private String sEnroll, department, semester;
+
+    private DatabaseReference reference;
 
     @Nullable
     @org.jetbrains.annotations.Nullable
@@ -39,14 +59,36 @@ public class bottom_dialog extends BottomSheetDialogFragment {
         btn_visit = view.findViewById(R.id.visit);
         close = view.findViewById(R.id.close);
 
-        title.setText(fetchurl);
+        reference = FirebaseDatabase.getInstance().getReference();
+        fUser = FirebaseAuth.getInstance().getCurrentUser();
+        profileId = fUser.getUid();
+
+        userInfo();
+//        title.setText(fetchurl);
+        title.setText(profileId);
+        title.setText("Scan Successful");
 
         btn_visit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent("android.intent.action.VIEW");
-                intent.setData(Uri.parse(fetchurl));
-                startActivity(intent);
+
+                reference = reference.child("Attendance");
+
+                HashMap<String, String> map = new HashMap<>();
+                map.put("enroll", sEnroll);
+
+                reference.child("AnnualFunction").child(department).child(semester).child(profileId).setValue(map).addOnCompleteListener(new OnCompleteListener<Void>() {
+                    @Override
+                    public void onComplete(@NonNull @NotNull Task<Void> task) {
+                        Toast.makeText(getContext(), "Attendance filled successfully", Toast.LENGTH_SHORT).show();
+                        startActivity(new Intent(getContext(), MainActivity.class));
+                    }
+                }).addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull @NotNull Exception e) {
+                        Toast.makeText(getContext(), "Error : " + e.getMessage(), Toast.LENGTH_SHORT).show();
+                    }
+                });
             }
         });
 
@@ -69,5 +111,27 @@ public class bottom_dialog extends BottomSheetDialogFragment {
                 fetchurl = url;
             }
         });
+    }
+
+    private void userInfo() {
+
+        FirebaseDatabase.getInstance().getReference().child("students").child(profileId).addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+
+                StudentData studentData = snapshot.getValue(StudentData.class);
+
+                sEnroll = studentData.getEnroll();
+                department = studentData.getDepartment();
+                semester = studentData.getSemester();
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
     }
 }

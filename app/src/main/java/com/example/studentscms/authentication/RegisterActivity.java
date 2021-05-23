@@ -35,7 +35,7 @@ public class RegisterActivity extends AppCompatActivity {
     private String sName, sEmail, sPwd, sEnroll, sNum, department, semester;
 
     private FirebaseAuth auth;
-    private DatabaseReference reference, deRef;
+    private DatabaseReference reference;
 
     private ProgressDialog pd;
 
@@ -147,11 +147,9 @@ public class RegisterActivity extends AppCompatActivity {
     }
 
     private void uploadData() {
-        deRef = reference.child("students");
-        String key = deRef.push().getKey();
 
         HashMap<String, String> map = new HashMap<>();
-        map.put("key", key);
+        map.put("key", auth.getCurrentUser().getUid());
         map.put("name", sName);
         map.put("email", sEmail);
         map.put("enroll", sEnroll);
@@ -160,7 +158,7 @@ public class RegisterActivity extends AppCompatActivity {
         map.put("phone", sNum);
         map.put("password", sPwd);
 
-        deRef.child(key).setValue(map).addOnCompleteListener(new OnCompleteListener<Void>() {
+        reference.child("students").child(auth.getCurrentUser().getUid()).setValue(map).addOnCompleteListener(new OnCompleteListener<Void>() {
             @Override
             public void onComplete(@NonNull @NotNull Task<Void> task) {
                 if (task.isSuccessful()) {
