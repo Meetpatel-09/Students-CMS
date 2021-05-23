@@ -36,4 +36,9 @@
         android:title="Developers"
         android:icon="@drawable/developer"/>
 
+    <item
+        android:id="@+id/navigation_scan"
+        android:title="Fill Attendance"
+        android:icon="@drawable/qr_code"/>
+
 </menu>
