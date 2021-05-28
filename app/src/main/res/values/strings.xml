@@ -13,7 +13,7 @@
     <string name="about_college">Government Polytechnic Waghai is located in Dang, Gujarat and affiliated with Gujarat Technological University. The objective of establishment of this college is not to provide only degrees to the youngsters but to make them an ornament that can glow on the bases of Nations Social Economical, Humanity, and Cultural and Public Governance values. The Institute started its first course in 2006. It is open for both Men and Women.</string>
 
     <string-array name="semesters">
-        <item>Semester</item>
+        <item>Select Semester</item>
         <item>1</item>
         <item>2</item>
         <item>3</item>
@@ -23,10 +23,18 @@
     </string-array>
 
     <string-array name="Department">
-        <item>Department</item>
+        <item>Select Department</item>
         <item>Civil</item>
         <item>Computer</item>
         <item>Mechanical</item>
+    </string-array>
+
+    <string-array name="Event">
+        <item>Select Event</item>
+        <item>Annual Function</item>
+        <item>Independence Day</item>
+        <item>Project Fair</item>
+        <item>Other Events</item>
     </string-array>
 
 </resources>

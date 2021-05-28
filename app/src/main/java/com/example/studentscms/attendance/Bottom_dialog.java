@@ -1,7 +1,6 @@
 package com.example.studentscms.attendance;
 
 import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
@@ -35,16 +34,16 @@ import java.util.HashMap;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
-public class bottom_dialog extends BottomSheetDialogFragment {
+public class Bottom_dialog extends BottomSheetDialogFragment {
 
     private TextView title, link, btn_visit;
     private ImageView close;
     private String fetchurl;
 
     private FirebaseUser fUser;
-    String profileId;
+    private String profileId;
 
-    private String sEnroll, department, semester;
+    private String sEnroll, department, semester, fname;
 
     private DatabaseReference reference;
 
@@ -59,8 +58,12 @@ public class bottom_dialog extends BottomSheetDialogFragment {
         btn_visit = view.findViewById(R.id.visit);
         close = view.findViewById(R.id.close);
 
-        reference = FirebaseDatabase.getInstance().getReference();
+        reference = FirebaseDatabase.getInstance().getReference().child("Attendance").child("AnnualFunction");
         fUser = FirebaseAuth.getInstance().getCurrentUser();
+
+        if (fUser.getUid() == null) {
+            Toast.makeText(getContext(), "Error", Toast.LENGTH_SHORT).show();
+        }
         profileId = fUser.getUid();
 
         userInfo();
@@ -72,12 +75,17 @@ public class bottom_dialog extends BottomSheetDialogFragment {
             @Override
             public void onClick(View v) {
 
-                reference = reference.child("Attendance");
-
                 HashMap<String, String> map = new HashMap<>();
+                map.put("id", profileId);
                 map.put("enroll", sEnroll);
+                map.put("name", fname);
+                map.put("department", department);
+                map.put("semester", semester);
 
-                reference.child("AnnualFunction").child(department).child(semester).child(profileId).setValue(map).addOnCompleteListener(new OnCompleteListener<Void>() {
+                String dep = department;
+                String sem = semester;
+
+                reference.child(dep).child(sem).child(profileId).setValue(map).addOnCompleteListener(new OnCompleteListener<Void>() {
                     @Override
                     public void onComplete(@NonNull @NotNull Task<Void> task) {
                         Toast.makeText(getContext(), "Attendance filled successfully", Toast.LENGTH_SHORT).show();
@@ -124,6 +132,7 @@ public class bottom_dialog extends BottomSheetDialogFragment {
                 sEnroll = studentData.getEnroll();
                 department = studentData.getDepartment();
                 semester = studentData.getSemester();
+                fname = studentData.getName();
 
             }
 

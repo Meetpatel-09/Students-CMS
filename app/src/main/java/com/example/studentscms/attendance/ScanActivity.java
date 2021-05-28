@@ -115,11 +115,11 @@ public class ScanActivity extends AppCompatActivity {
 
     public class MyImageAnyliser implements ImageAnalysis.Analyzer {
         private FragmentManager fragmentManager;
-        private bottom_dialog bd;
+        private Bottom_dialog bd;
 
         public MyImageAnyliser(FragmentManager fragmentManager) {
             this.fragmentManager = fragmentManager;
-            bd = new bottom_dialog();
+            bd = new Bottom_dialog();
         }
 
         @Override
